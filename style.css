@@ -1,0 +1,24 @@
+.header {
+  text-align: center;
+  border: 1px solid black;
+}
+
+.nav {
+  border: 1px solid black;
+}
+
+.display {
+  display: flex;
+}
+
+.dispFavContainer {
+  height: 500px;
+  width: 500px;
+  border: 1px solid black;
+}
+
+.wordCloudContainer {
+  height: 500px;
+  width: 500px;
+  border: 1px solid black;
+}
