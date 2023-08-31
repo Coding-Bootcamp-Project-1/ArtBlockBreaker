@@ -39,17 +39,5 @@ function createWordCloud () {
             console.log('url', wordCloudImageUrl)
             wordCloudImage.src = wordCloudImageUrl
         })};
-    // fetch(requestUrl)
-    //     .then(function (response) {
-    //         console.log('response', response)
-    //         return response.blob()
-    //     })
-    //     .then(function (data) {
-    //         console.log('data', data)
-    //         console.log('created url', URL.createObjectURL(data))
-    //         wordCloudImage.src = URL.createObjectURL(data)
-    //         console.log('created url', URL.createObjectURL(data))
-    //     })
-
 
 createWordCloud()
