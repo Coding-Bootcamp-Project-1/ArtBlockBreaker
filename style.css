@@ -5,6 +5,7 @@
 
 .nav {
   border: 1px solid black;
+  margin: 10px;
 }
 
 .display {
@@ -12,18 +13,56 @@
 }
 
 .dispFavContainer {
-  height: 500px;
-  width: 500px;
+  flex: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+  height: 800px;
+  width: 800px;
+  border: 1px solid black;
+}
+
+.displayCardFP {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  border: 1px solid black;
+  margin: 20px;
+}
+
+.favImage {
+  height: 300px;
+  width: 300px;
+  border: 1px solid black;
+}
+
+.favImageTitle {
   border: 1px solid black;
 }
 
 .wordCloudContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 50px;
   height: 500px;
   width: 500px;
   border: 1px solid black;
 }
 
-.dispWCImage {
-  height: 100%;
-  width: 100%;
+.wordCloudDescription {
+  border: 1px solid black;
+}
+
+.wordCloudImage {
+  height: 400px;
+  width: 400px;
+  border: 1px solid black;
+}
+
+.button {
+  margin: 5px;
 }
