@@ -1,33 +1,57 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Art Block Breaker</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>
-    <h1>Art Block Breaker</h1>
-    <nav>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Art Block Breaker</title>
+    <link rel="stylesheet" href="styleLanding.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Art Block Breaker</h1>
+    </header>
+    <div>
+      <nav id="navSection" class="navSection">
         <a href="#">Link for favourite page</a>
-    </nav>
+        <form id="searchForm" class="form">
+          <input
+            placeholder="Search Your Artist"
+            id="searchInput"
+            class="searchInput"
+          /><button id="searchButton" class="button">Search Button</button>
+        </form>
+      </nav>
+    </div>
+    <div id="displayArtContainer" class="displayContainer">
+      <img id="mainImage" class="mainImage" src="" />
 
-
-  </header>
-
-  <main>
-    <section>
-    <form><Button>Search Button</Button></form>
-    </section>
-    
-    <section>
-      <h2>Art Block Breaker</h2>
-      <p>This is where I can put some information about the .</p>
-      <p>Art Institute of Chicago</p>
-    </section>
-  </main>
-  <footer>
-    <p>2023</p>
-  </footer>
-</body>
+      <div class="displayCard">
+        <div class="cardImage">
+          <img class="searchResultImage" />
+          <button class="favoriteButton">Add to Favorite</button>
+        </div>
+        <div class="description">
+          <h3 class="artName">Title and Year</h3>
+          <p class="artistName">Artist Name</p>
+          <p class="artInfo">artInfo</p>
+        </div>
+      </div>
+      <div class="displayCard">
+        <div class="cardImage">
+          <img class="searchResultImage" />
+          <button class="favoriteButton">Add to Favorite</button>
+        </div>
+        <div class="description">
+          <h3 class="artName">Title and Year</h3>
+          <p class="artistName">Artist Name</p>
+          <p class="artInfo">artInfo</p>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p>2023</p>
+    </footer>
+    <script src="./landing-page.js"></script>
+  </body>
 </html>
 <!-- border, element, css -->
