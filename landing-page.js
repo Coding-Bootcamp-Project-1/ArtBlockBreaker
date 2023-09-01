@@ -2,6 +2,7 @@
 
 // searchfield
 var searchForm = document.getElementById('searchForm')
+var searchInput = document.getElementById('searchInput')
 // searchbutton
 var searchButton = document.getElementById('searchButton')
 // displaySect
@@ -13,7 +14,7 @@ var displayArtCards = document.getElementById('displayArtContainer')
 //write API function
 function getArt(e){
     e.preventDefault()
-    var searchTerm = searchForm.value
+    var searchTerm = searchInput.value
     
     var requestUrl = `https://api.artic.edu/api/v1/artworks/search?q=${searchTerm}`
     
@@ -68,4 +69,4 @@ function favoritePage(){
 
 //Event listener for button click
 searchForm.addEventListener('submit', getArt)
-favPageLink.addEventListener('click', favoritePage)
+//favPageLink.addEventListener('click', favoritePage)
