@@ -11,7 +11,8 @@ var favPageLink = document.getElementById('')
 
 
 //write API function
-function getArt(){
+function getArt(e){
+    e.preventDefault()
     var searchTerm = searchForm.value
     
     var requestUrl = `https://api.artic.edu/api/v1/artworks/search?q=${searchTerm}`
@@ -24,12 +25,13 @@ function getArt(){
             console.log(data)
             for(var i = 0; i < data.length; i++){
 
+                //var imageId = data.
                 var displayCard = document.createElement('div')
                 var resultImage = document.createElement('img')
                 var discSect = document.createElement('p')
                 var favButton = document.createElement('button')
 
-                getImageSrc()
+                getImageSrc(imageId)
                 discSect.textContent = data.
 
                 displayCard.append(resultImage, resultImage, discSect, favButton)
@@ -41,8 +43,11 @@ function getArt(){
         })
 }
 
-function getImageSrc(){
-    var imgUrl = `https://www.artic.edu/iiif/2/{identifier}/full/843,/0/default.jpg`
+function getImageSrc(imageId){
+    
+    var imgId = imageId
+    
+    var imgUrl = `https://www.artic.edu/iiif/2/${imgId}/full/843,/0/default.jpg`
 
 
 }
@@ -53,5 +58,5 @@ function favoritePage(){
 }
 
 //Event listener for button click
-searchButton.addEventListener('click', getArt)
+searchForm.addEventListener('submit', getArt)
 favPageLink.addEventListener('click', favoritePage)
