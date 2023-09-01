@@ -5,9 +5,9 @@ var searchForm = document.getElementById('searchForm')
 // searchbutton
 var searchButton = document.getElementById('searchButton')
 // displaySect
-var displayArtCards = document.getElementById('')
+var displayArtCards = document.getElementById('displayArtContainer')
 // favoritesPage
-var favPageLink = document.getElementById('')
+//var favPageLink = document.getElementById('')
 
 
 //write API function
@@ -23,18 +23,27 @@ function getArt(e){
         })
         .then(function(data){
             console.log(data)
-            for(var i = 0; i < data.length; i++){
+            for(var i = 0; i < data.data.length; i++){
 
                 //var imageId = data.
                 var displayCard = document.createElement('div')
                 var resultImage = document.createElement('img')
                 var discSect = document.createElement('p')
                 var favButton = document.createElement('button')
+                fetch(data.data[i].api_link)
+                    .then(function(response){
+                        return response.json()
+                    })
+                    .then(function(data){
+                        console.log(data)
+                        var imageUrl = getImageSrc(data.data.image_id)
+                        resultImage.src = imageUrl
+                    })
+                
 
-                getImageSrc(imageId)
-                discSect.textContent = data.
+               // discSect.textContent = data.
 
-                displayCard.append(resultImage, resultImage, discSect, favButton)
+                displayCard.append(resultImage, discSect, favButton)
                 displayArtCards.append(displayCard)
 
 
@@ -45,11 +54,11 @@ function getArt(e){
 
 function getImageSrc(imageId){
     
-    var imgId = imageId
     
-    var imgUrl = `https://www.artic.edu/iiif/2/${imgId}/full/843,/0/default.jpg`
+    
+    var imgUrl = `https://www.artic.edu/iiif/2/${imageId}/full/843,/0/default.jpg`
 
-
+    return imgUrl
 }
 
 function favoritePage(){
