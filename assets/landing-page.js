@@ -25,6 +25,9 @@ function getArt(e) {
   var searchTerm = searchInput.value;
   var requestUrl = `https://api.artic.edu/api/v1/artworks/search?q=${searchTerm}&size=10`;
 
+  //clear search field
+  searchInput.value = ''
+
   // fetch the Art Institute API for art ID
   fetch(requestUrl)
     .then(function (response) {
@@ -33,8 +36,6 @@ function getArt(e) {
     .then(function (data) {
       console.log(data);
       for (var i = 0; i < data.data.length; i++) {
-        // var altText = data.data[i].thumbnail.alt_text;
-        // console.log('alt text first time: ', altText)
         var theImageId = data.data[i].id
         console.log('image id: ', theImageId)
         // getTextData(theImageId)
@@ -45,8 +46,7 @@ function getArt(e) {
           })
           .then(function (data) {
             console.log('2nd fetch data: ', data)
-            renderDispCard(data) //altText);
-            // console.log('alt text 2nd time: ', altText)
+            renderDispCard(data)
           });
       }
     });
@@ -76,7 +76,6 @@ function renderDispCard(data) {
   var artistName = document.createElement("p");
   var artInfo = document.createElement("p");
 
-  // var altText = data.data.thumbnail.alt_text
   var imageUrl = getImageSrc(data.data.image_id);
 
   //add values or attributes to the HTML elements
