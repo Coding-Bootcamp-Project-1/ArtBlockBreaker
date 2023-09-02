@@ -1,17 +1,14 @@
-// create var for html elements on page
 
-// search form
 var searchForm = document.getElementById("searchForm");
-// search input field
 var searchInput = document.getElementById("searchInput");
-// searchbutton
 var searchButton = document.getElementById("searchButton");
-// displaySect
 var displayArtCards = document.getElementById("displayArtContainer");
-// main hero image
 var heroImage = document.getElementById("mainImage");
-// favoritesPage
-//var favPageLink = document.getElementById('')
+// var favPageLink = document.getElementById('')
+
+function init() {
+  heroImage.src = "./assets/Van_Gogh_Starry_Night.jpg";
+}
 
 //write API function for the getting the art images
 function getArt(e) {
@@ -27,6 +24,9 @@ function getArt(e) {
   var searchTerm = searchInput.value;
   var requestUrl = `https://api.artic.edu/api/v1/artworks/search?q=${searchTerm}&size=10`;
 
+  //clear search field
+  searchInput.value = ''
+
   // fetch the Art Institute API for art ID
   fetch(requestUrl)
     .then(function (response) {
@@ -35,31 +35,21 @@ function getArt(e) {
     .then(function (data) {
       console.log(data);
       for (var i = 0; i < data.data.length; i++) {
-        //var imageId = data.
-        var altText = data.data[i].thumbnail.alt_text;
         // fetch the artwork image id to construct the image url
         fetch(data.data[i].api_link)
           .then(function (response) {
             return response.json();
           })
           .then(function (data) {
-            renderDispCard(data, altText);
+            console.log('2nd fetch data: ', data)
+            renderDispCard(data)
           });
       }
     });
 }
 
-// define function to construct image URL
-function getImageSrc(imageId) {
-  var imgUrl = `https://www.artic.edu/iiif/2/${imageId}/full/843,/0/default.jpg`;
-  return imgUrl;
-}
-
 // define function to render images in display card
-function renderDispCard(data, altText) {
-  // hide the main hero page
-  //   heroImage.classList.add("hidden");
-  //   displayArtCards.innerHTML = "";
+function renderDispCard(data) {
   //create HTML element for the display card
   var displayCard = document.createElement("div");
   var cardImage = document.createElement("div");
@@ -78,7 +68,8 @@ function renderDispCard(data, altText) {
   favButton.textContent = "Add to Favorite";
   titleYear.textContent = `${data.data.title}     ${data.data.date_end}`;
   artistName.textContent = data.data.artist_title;
-  artInfo.textContent = altText;
+  artInfo.textContent = data.data.thumbnail.alt_text;
+  // console.log('alt text from disp function: ', altText)
 
   //add CSS class to the HTML element;
   displayCard.classList.add("displayCard");
@@ -97,17 +88,19 @@ function renderDispCard(data, altText) {
   displayArtCards.append(displayCard);
 }
 
-// add function for favorite page
-function favoritePage() {
-  window.location.assign("./favorite.html");
+// define function to construct image URL
+function getImageSrc(imageId) {
+  var imgUrl = `https://www.artic.edu/iiif/2/${imageId}/full/843,/0/default.jpg`;
+  return imgUrl;
 }
+
+// add function for favorite page
+// function favoritePage() {
+//   window.location.assign("./favorite.html");
+// }
 
 //Event listener for button click
 searchForm.addEventListener("submit", getArt);
-//favPageLink.addEventListener('click', favoritePage)
-
-function init() {
-  heroImage.src = "./assets/Van_Gogh_Starry_Night.jpg";
-}
+// favPageLink.addEventListener('click', favoritePage)
 
 init();
