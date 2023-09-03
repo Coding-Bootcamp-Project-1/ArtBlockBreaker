@@ -4,9 +4,35 @@ var favDisplayEl = document.getElementById('dispFavContainer')
 var wordCloudDisplayEl = document.getElementById('wordCloudContainer')
 var wordCloudImage = document.getElementById('wordCloudImage')
 
-var wordList = "Four score and seven years ago our fathers brought forth on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.Now we are engaged in a great civil war, testing whether that nation, or any nation so conceived and so dedicated, can long endure. We are met on a great battle-field of that war. We have come to dedicate a portion of that field, as a final resting place for those who here gave their lives that that nation might live. It is altogether fitting and proper that we should do this.But, in a larger sense, we can not dedicate—we can not consecrate—we can not hallow—this ground. The brave men, living and dead, who struggled here, have consecrated it, far above our poor power to add or detract. The world will little note, nor long remember what we say here, but it can never forget what they did here. It is for us the living, rather, to be dedicated here to the unfinished work which they who fought here have thus far so nobly advanced. It is rather for us to be here dedicated to the great task remaining before us—that from these honored dead we take increased devotion to that cause for which they gave the last full measure of devotion—that we here highly resolve that these dead shall not have died in vain—that this nation, under God, shall have a new birth of freedom—and that government of the people, by the people, for the people, shall not perish from the earth."
+var favItems = [
+    {
+        title: "Arrival of the Normandy Train, Gare Saint-Lazare",
+        artist_title: "Claude Monet",
+        color: {
+            h: 6,
+            l: 34,
+            s: 53
+        },
+        term_titles: ["painting", "Impressionism", "oil painting", "oil paint (paint)", "european painting", "painting (image making)", "world's fairs", "Chicago World's Fairs", "Century of Progress", "transportation", "urban life", "landscapes"],
+        alt_text: "Loosely painted image of an open-air train station. On the right, a parked train gives off an enormous plumb of white smoke, making the scene look as though it were full of clouds. A huddled mass of barely discernible people crowd around the train on both sides of the tracks. Blue, green, and gray tones dominate.",
+        imageUrl: `https://www.artic.edu/iiif/2/838d8c33-a3b4-68ea-587b-87ceec2011af/full/843,/0/default.jpg`
+    },
+    {
+        title: "Branch of the Seine near Giverny (Mist)",
+        artist_title: "Claude Monet",
+        color: {
+            h: 225,
+            l: 49,
+            s: 12
+        },
+        term_titles: ["water", "weather/seasons", "european painting", "oil paint (paint)", "landscapes", "Impressionism", "painting"],
+        alt_text: "Painting of softly rendered shapes in pale blue, green, and white. A textured green mass at left resembles foliage. Blue and white cloud-like forms fill the rest of the frame.",
+        imageUrl: `https://www.artic.edu/iiif/2/4d1b3ad0-14db-0d21-ad9f-17abb8bdfbb5/full/843,/0/default.jpg`
+    }
+]
 
-var colorList = ["#6b2737","#e08e45","#f8f4a6","#bdf7b7","#3943b7"]
+var wordList = ""
+var colorList = []
 
 var apiObject = {
     format: "svg",
@@ -19,7 +45,43 @@ var apiObject = {
     colors: colorList}
 
 // add get favorites function
+localStorage.setItem("favItems", JSON.stringify(favItems))
+
+
 // add remove from favorites function
+
+function renderFavItems() {
+    var favToDisplay = JSON.parse(localStorage.getItem("favItems"))
+    console.log('returned from local storage: ', favToDisplay)
+    for (var i = 0; i < favToDisplay.length; i++) {
+        //create HTML elements for favorite display card
+        var favCard = document.createElement('div')
+        var cardImage = document.createElement('div')
+        var cardDescription = document.createElement('div')
+        var resultImage = document.createElement('img')
+        var removeButton = document.createElement('button')
+        var artistName = document.createElement('p')
+        var imageTitle = document.createElement('p')
+
+        var termTitles = favToDisplay[i].term_titles.toString()
+
+        // add values or attributes to HTML elements
+        // resultImage.src = this.imageUrl
+        removeButton.textContent = "Remove from Favorites"
+        artistName.textContent = favToDisplay[i].artist_title
+        imageTitle.textContent = favToDisplay[i].title
+
+        //add CSS class to HTML elements
+
+        //append the elements to parent HTML element
+        // cardImage.append(resultImage)
+        cardDescription.append(imageTitle, artistName, removeButton)
+        favCard.append(cardImage, cardDescription)
+        favDisplayEl.append(favCard)
+        wordList += termTitles + ", " + favToDisplay[i].alt_text
+        console.log(wordList)
+    }
+}
 
 function createWordCloud () {
     fetch(`https://quickchart.io/wordcloud`,{
@@ -40,4 +102,5 @@ function createWordCloud () {
             wordCloudImage.src = wordCloudImageUrl
         })};
 
-createWordCloud()
+renderFavItems()
+// createWordCloud()
