@@ -108,7 +108,8 @@ function renderFavItems() {
     favDisplayEl.append(favCard);
 
     //add to word list for word cloud
-    apiObject.text += termTitles + ", " + favToDisplay[i].alt_text;
+    wordList += termTitles + ", " + favToDisplay[i].alt_text;
+    apiObject.text = wordList;
 
     //get hex code for color
     var colorCodeH = favToDisplay[i].color.h;
