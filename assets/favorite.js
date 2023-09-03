@@ -15,7 +15,7 @@ var favItems = [
         },
         term_titles: ["painting", "Impressionism", "oil painting", "oil paint (paint)", "european painting", "painting (image making)", "world's fairs", "Chicago World's Fairs", "Century of Progress", "transportation", "urban life", "landscapes"],
         alt_text: "Loosely painted image of an open-air train station. On the right, a parked train gives off an enormous plumb of white smoke, making the scene look as though it were full of clouds. A huddled mass of barely discernible people crowd around the train on both sides of the tracks. Blue, green, and gray tones dominate.",
-        imageUrl: `https://www.artic.edu/iiif/2/838d8c33-a3b4-68ea-587b-87ceec2011af/full/843,/0/default.jpg`
+        imageUrl: ``
     },
     {
         title: "Branch of the Seine near Giverny (Mist)",
@@ -27,29 +27,20 @@ var favItems = [
         },
         term_titles: ["water", "weather/seasons", "european painting", "oil paint (paint)", "landscapes", "Impressionism", "painting"],
         alt_text: "Painting of softly rendered shapes in pale blue, green, and white. A textured green mass at left resembles foliage. Blue and white cloud-like forms fill the rest of the frame.",
-        imageUrl: `https://www.artic.edu/iiif/2/4d1b3ad0-14db-0d21-ad9f-17abb8bdfbb5/full/843,/0/default.jpg`
+        imageUrl: ``
     }
 ]
 
 var wordList = ""
 var colorList = []
 
-var apiObject = {
-    format: "svg",
-    width: 500,
-    height: 500,
-    fontFamily: "sans-serif",
-    fontScale: 15,
-    scale: "linear",
-    text: wordList,
-    colors: colorList}
-
-// add get favorites function
+//add get favorites function
 localStorage.setItem("favItems", JSON.stringify(favItems))
 
 
-// add remove from favorites function
+//add remove from favorites function
 
+//show favorites list on page
 function renderFavItems() {
     var favToDisplay = JSON.parse(localStorage.getItem("favItems"))
     console.log('returned from local storage: ', favToDisplay)
@@ -78,12 +69,50 @@ function renderFavItems() {
         cardDescription.append(imageTitle, artistName, removeButton)
         favCard.append(cardImage, cardDescription)
         favDisplayEl.append(favCard)
+
+        //add to word list for word cloud
         wordList += termTitles + ", " + favToDisplay[i].alt_text
-        console.log(wordList)
+
+        //get hex code for color
+        var colorCodeH = favToDisplay[i].color.h
+        var colorCodeL = favToDisplay[i].color.l
+        var colorCodeS = favToDisplay[i].color.s
+        var colorFullCode = `${colorCodeH},${colorCodeL},${colorCodeS}`
+        getColor(colorFullCode) 
     }
 }
 
+function getColor(colorFullCode) {
+    var requestUrl = `https://www.thecolorapi.com/id?hsl=${colorFullCode}`
+    console.log('url', requestUrl)
+    fetch(requestUrl)
+        .then(function (response) {
+            return response.json()
+        })
+        .then(function (data) {
+            hexColor = data.hex.value
+            colorList.push(hexColor)
+        })
+}
+
+var apiObject = {
+    format: "svg",
+    width: 500,
+    height: 500,
+    fontFamily: "sans-serif",
+    fontScale: 15,
+    scale: "linear",
+    text: "testing if this is even working anymore with the changes that I made",
+    colors: colorList,
+    removeStopwords: true,
+    cleanWords: true,
+    useWordList: true
+}
+
 function createWordCloud () {
+    console.log('text passed into wc: ', wordList)
+    console.log(typeof wordList)
+    console.log('colors passed into wc: ', colorList)
     fetch(`https://quickchart.io/wordcloud`,{
         method: "POST",
         body: JSON.stringify(apiObject),
@@ -100,7 +129,8 @@ function createWordCloud () {
             var wordCloudImageUrl = URL.createObjectURL(data)
             console.log('url', wordCloudImageUrl)
             wordCloudImage.src = wordCloudImageUrl
-        })};
+        })
+}
 
 renderFavItems()
-// createWordCloud()
+wordCloudBtn.addEventListener('click', createWordCloud())
