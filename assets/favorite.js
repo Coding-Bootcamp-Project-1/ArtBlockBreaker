@@ -1,9 +1,11 @@
+//Define variable names for HTML elements
 var returnBtn = document.getElementById("returnBtnFP");
 var wordCloudBtn = document.getElementById("wordCloudBtnFP");
 var favDisplayEl = document.getElementById("dispFavContainer");
 var wordCloudDisplayEl = document.getElementById("wordCloudContainer");
 var wordCloudImage = document.getElementById("wordCloudImage");
 
+//Manually set favorite items list, this will be replaced by future codes to generate favorite list
 var favItems = [
   {
     title: "Arrival of the Normandy Train, Gare Saint-Lazare",
@@ -54,9 +56,9 @@ var favItems = [
   },
 ];
 
-var wordList = "";
+//Definal inial values for global objects.
+var wordList = [];
 var colorList = [];
-
 var apiObject = {
   format: "svg",
   width: 500,
@@ -65,22 +67,18 @@ var apiObject = {
   fontScale: 15,
   scale: "linear",
   cleanWords: true,
-  colors: colorList,
-  // removeStopwords: true,
-  //   useWordList: true,
-  //   text: "testing if this is even working anymore with the changes that I made",
-  text: wordList,
+  colors: "",
+  text: "",
 };
 
-//add get favorites function
+// manually add localstorage favorite item list, this will be replaced by future codes
 localStorage.setItem("favItems", JSON.stringify(favItems));
 
 //add remove from favorites function
 
-//show favorites list on page
+// define function to show favorites list on page
 function renderFavItems() {
   var favToDisplay = JSON.parse(localStorage.getItem("favItems"));
-  console.log("returned from local storage: ", favToDisplay);
   for (var i = 0; i < favToDisplay.length; i++) {
     //create HTML elements for favorite display card
     var favCard = document.createElement("div");
@@ -90,7 +88,6 @@ function renderFavItems() {
     var removeButton = document.createElement("button");
     var artistName = document.createElement("p");
     var imageTitle = document.createElement("p");
-
     var termTitles = favToDisplay[i].term_titles.toString();
 
     // add values or attributes to HTML elements
@@ -107,7 +104,7 @@ function renderFavItems() {
     favCard.append(cardImage, cardDescription);
     favDisplayEl.append(favCard);
 
-    //add to word list for word cloud
+    //add to word list for word cloud to apiObject
     wordList += termTitles + ", " + favToDisplay[i].alt_text;
     apiObject.text = wordList;
 
@@ -117,12 +114,16 @@ function renderFavItems() {
     var colorCodeS = favToDisplay[i].color.s;
     var colorFullCode = `${colorCodeH},${colorCodeL},${colorCodeS}`;
     getColor(colorFullCode);
+
+    //add colorlist to the apiObject
+    apiObject.colors = colorList;
   }
 }
 
+// define function to get the prominent color code function
 function getColor(colorFullCode) {
   var requestUrl = `https://www.thecolorapi.com/id?hsl=${colorFullCode}`;
-  console.log("url", requestUrl);
+  // console.log("url", requestUrl);
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
@@ -133,10 +134,12 @@ function getColor(colorFullCode) {
     });
 }
 
+// define create word cloud function
 function createWordCloud() {
   console.log("text passed into wc: ", wordList);
-  console.log(typeof wordList);
+  console.log(typeof wordList.toString());
   console.log("colors passed into wc: ", colorList);
+  console.log(apiObject);
   fetch(`https://quickchart.io/wordcloud`, {
     method: "POST",
     body: JSON.stringify(apiObject),
