@@ -1,11 +1,15 @@
+// define variables for the HTML elements
 
 var searchForm = document.getElementById("searchForm");
 var searchInput = document.getElementById("searchInput");
 var searchButton = document.getElementById("searchButton");
 var displayArtCards = document.getElementById("displayArtContainer");
 var heroImage = document.getElementById("mainImage");
-// var favPageLink = document.getElementById('')
 
+// define global variables
+var favoriteArtworkID;
+
+// define initation function
 function init() {
   heroImage.src = "./assets/Van_Gogh_Starry_Night.jpg";
 }
@@ -25,7 +29,7 @@ function getArt(e) {
   var requestUrl = `https://api.artic.edu/api/v1/artworks/search?q=${searchTerm}&size=10`;
 
   //clear search field
-  searchInput.value = ''
+  searchInput.value = "";
 
   // fetch the Art Institute API for art ID
   fetch(requestUrl)
@@ -33,7 +37,7 @@ function getArt(e) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
+      // console.log(data);
       for (var i = 0; i < data.data.length; i++) {
         // fetch the artwork image id to construct the image url
         fetch(data.data[i].api_link)
@@ -41,8 +45,8 @@ function getArt(e) {
             return response.json();
           })
           .then(function (data) {
-            console.log('2nd fetch data: ', data)
-            renderDispCard(data)
+            console.log("2nd fetch data: ", data);
+            renderDispCard(data);
           });
       }
     });
@@ -65,6 +69,7 @@ function renderDispCard(data) {
   //add values or attributes to the HTML elements
   resultImage.src = imageUrl;
   favButton.textContent = "Add to Favorite";
+  favButton.dataset.index = data.data.id;
   titleYear.textContent = `${data.data.title}     ${data.data.date_end}`;
   artistName.textContent = data.data.artist_title;
   artInfo.textContent = data.data.thumbnail.alt_text;
@@ -93,13 +98,27 @@ function getImageSrc(imageId) {
   return imgUrl;
 }
 
-// add function for favorite page
-// function favoritePage() {
-//   window.location.assign("./favorite.html");
-// }
+// define function to add favorite artwork to a favorite Array
+function addFavorite(e) {
+  if (localStorage.getItem("Favorite Artwork ID")) {
+    favoriteArtworkID = JSON.parse(localStorage.getItem("Favorite Artwork ID"));
+    if (favoriteArtworkID.includes(e.target.dataset.index)) return;
+  } else {
+    favoriteArtworkID = [];
+  }
 
-//Event listener for button click
+  // push the favorite image id into the array
+  favoriteArtworkID.push(e.target.dataset.index);
+  localStorage.setItem(
+    "Favorite Artwork ID",
+    JSON.stringify(favoriteArtworkID)
+  );
+}
+
+// add event listener for form submit
 searchForm.addEventListener("submit", getArt);
-// favPageLink.addEventListener('click', favoritePage)
+
+// add event listener for the favorite button
+displayArtCards.addEventListener("click", addFavorite);
 
 init();

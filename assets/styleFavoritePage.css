@@ -17,29 +17,36 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  align-items: flex-start;
-  height: 800px;
-  width: 800px;
-  border: 1px solid black;
+  align-items: center;
 }
 
 .displayCardFP {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 40%;
-  border: 1px solid black;
-  margin: 20px;
+  width: 30%;
+  margin: 5px;
 }
 
 .favImage {
-  height: 300px;
-  width: 300px;
+  width: 100%;
   border: 1px solid black;
 }
 
-.favImageTitle {
-  border: 1px solid black;
+.favImageDescription {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 15px;
+}
+
+.imageTitle {
+  margin: 5px;
+}
+
+.artistName {
+  margin: 5px;
+  color: grey;
 }
 
 .wordCloudContainer {
@@ -58,8 +65,8 @@
 }
 
 .wordCloudImage {
-  height: 400px;
-  width: 400px;
+  height: 500px;
+  width: 500px;
   border: 1px solid black;
 }
 
