@@ -55,7 +55,6 @@ function renderDispCard(data) {
   var cardImage = document.createElement("div");
   var resultImage = document.createElement("img");
   var favButton = document.createElement("button");
-
   var cardDescription = document.createElement("div");
   var titleYear = document.createElement("h3");
   var artistName = document.createElement("p");
