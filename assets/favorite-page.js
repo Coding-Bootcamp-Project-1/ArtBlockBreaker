@@ -4,6 +4,12 @@ var wordCloudBtn = document.getElementById("wordCloudBtnFP");
 var favDisplayEl = document.getElementById("dispFavContainer");
 var wordCloudDisplayEl = document.getElementById("wordCloudContainer");
 var wordCloudImage = document.getElementById("wordCloudImage");
+var darkMode = document.getElementById("darkMode")
+
+function changeViewMode() {
+  var bodyEl = document.body;
+  bodyEl.classList.toggle("darkMode")
+}
 
 //Definal inial values for global objects.
 var wordList = [];
@@ -135,5 +141,5 @@ function init() {
 }
 
 wordCloudBtn.addEventListener("click", createWordCloud);
-
+darkMode.addEventListener("click", changeViewMode);
 init();
