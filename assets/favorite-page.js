@@ -11,60 +11,10 @@ function changeViewMode() {
   bodyEl.classList.toggle("darkMode")
 }
 
-//Manually set favorite items list, this will be replaced by future codes to generate favorite list
-var favItems = [
-  {
-    title: "Arrival of the Normandy Train, Gare Saint-Lazare",
-    artist_title: "Claude Monet",
-    color: {
-      h: 6,
-      l: 34,
-      s: 53,
-    },
-    term_titles: [
-      "painting",
-      "Impressionism",
-      "oil painting",
-      "oil paint (paint)",
-      "european painting",
-      "painting (image making)",
-      "world's fairs",
-      "Chicago World's Fairs",
-      "Century of Progress",
-      "transportation",
-      "urban life",
-      "landscapes",
-    ],
-    alt_text:
-      "Loosely painted image of an open-air train station. On the right, a parked train gives off an enormous plumb of white smoke, making the scene look as though it were full of clouds. A huddled mass of barely discernible people crowd around the train on both sides of the tracks. Blue, green, and gray tones dominate.",
-    imageUrl: ``,
-  },
-  {
-    title: "Branch of the Seine near Giverny (Mist)",
-    artist_title: "Claude Monet",
-    color: {
-      h: 225,
-      l: 49,
-      s: 12,
-    },
-    term_titles: [
-      "water",
-      "weather/seasons",
-      "european painting",
-      "oil paint (paint)",
-      "landscapes",
-      "Impressionism",
-      "painting",
-    ],
-    alt_text:
-      "Painting of softly rendered shapes in pale blue, green, and white. A textured green mass at left resembles foliage. Blue and white cloud-like forms fill the rest of the frame.",
-    imageUrl: ``,
-  },
-];
-
 //Definal inial values for global objects.
 var wordList = [];
 var colorList = [];
+var favoriteArtworkID = [];
 var apiObject = {
   format: "svg",
   width: 500,
@@ -77,53 +27,73 @@ var apiObject = {
   text: "",
 };
 
-// manually add localstorage favorite item list, this will be replaced by future codes
-localStorage.setItem("favItems", JSON.stringify(favItems));
-
 //add remove from favorites function
 
 // define function to show favorites list on page
 function renderFavItems() {
-  var favToDisplay = JSON.parse(localStorage.getItem("favItems"));
-  for (var i = 0; i < favToDisplay.length; i++) {
-    //create HTML elements for favorite display card
-    var favCard = document.createElement("div");
-    var cardImage = document.createElement("div");
-    var cardDescription = document.createElement("div");
-    var resultImage = document.createElement("img");
-    var removeButton = document.createElement("button");
-    var artistName = document.createElement("p");
-    var imageTitle = document.createElement("p");
-    var termTitles = favToDisplay[i].term_titles.toString();
+  // var favToDisplay = JSON.parse(localStorage.getItem("favItems"));
+  // retrive favorite artwork ID from the localstorage
+  var favoriteArtworkID = JSON.parse(
+    localStorage.getItem("Favorite Artwork ID")
+  );
 
-    // add values or attributes to HTML elements
-    // resultImage.src = this.imageUrl
-    removeButton.textContent = "Remove from Favorites";
-    artistName.textContent = favToDisplay[i].artist_title;
-    imageTitle.textContent = favToDisplay[i].title;
+  for (var i = 0; i < favoriteArtworkID.length; i++) {
+    // retrieve all image information from the art institute API using the image id
+    var urlImage = `https://api.artic.edu/api/v1/artworks/${favoriteArtworkID[i]}`;
+    fetch(urlImage)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        console.log(data);
+        renderFavCard(data);
+        //add to word list for word cloud to apiObject
+        wordList += data.data.term_titles + ", " + data.data.thumbnail.alt_text;
+        apiObject.text = wordList;
 
-    //add CSS class to HTML elements
+        //get hex code for color
+        var colorCodeH = data.data.color.h;
+        var colorCodeL = data.data.color.l;
+        var colorCodeS = data.data.color.s;
+        var colorFullCode = `${colorCodeH},${colorCodeL},${colorCodeS}`;
+        getColor(colorFullCode);
 
-    //append the elements to parent HTML element
-    // cardImage.append(resultImage)
-    cardDescription.append(imageTitle, artistName, removeButton);
-    favCard.append(cardImage, cardDescription);
-    favDisplayEl.append(favCard);
-
-    //add to word list for word cloud to apiObject
-    wordList += termTitles + ", " + favToDisplay[i].alt_text;
-    apiObject.text = wordList;
-
-    //get hex code for color
-    var colorCodeH = favToDisplay[i].color.h;
-    var colorCodeL = favToDisplay[i].color.l;
-    var colorCodeS = favToDisplay[i].color.s;
-    var colorFullCode = `${colorCodeH},${colorCodeL},${colorCodeS}`;
-    getColor(colorFullCode);
-
-    //add colorlist to the apiObject
-    apiObject.colors = colorList;
+        //add colorlist to the apiObject
+        apiObject.colors = colorList;
+      });
   }
+}
+
+function renderFavCard(data) {
+  //create HTML elements for favorite display card
+  var favCard = document.createElement("div");
+  var cardImage = document.createElement("div");
+  var cardDescription = document.createElement("div");
+  var resultImage = document.createElement("img");
+  var removeButton = document.createElement("button");
+  var artistName = document.createElement("p");
+  var imageTitle = document.createElement("p");
+
+  // add values or attributes to HTML elements
+  resultImage.src = `https://www.artic.edu/iiif/2/${data.data.image_id}/full/843,/0/default.jpg`;
+  removeButton.textContent = "Remove from Favorites";
+  artistName.textContent = data.data.artist_title;
+  imageTitle.textContent = data.data.title;
+
+  //add CSS class to HTML elements
+  favCard.classList.add("displayCardFP");
+  cardImage.classList.add("favImageDiv");
+  cardDescription.classList.add("favImageDescription");
+  resultImage.classList.add("favImage");
+  imageTitle.classList.add("imageTitle");
+  artistName.classList.add("artistName");
+  removeButton.classList.add("button");
+
+  //append the elements to parent HTML element
+  cardImage.append(resultImage);
+  cardDescription.append(imageTitle, artistName);
+  favCard.append(cardImage, cardDescription, removeButton);
+  favDisplayEl.append(favCard);
 }
 
 // define function to get the prominent color code function
@@ -165,6 +135,11 @@ function createWordCloud() {
     });
 }
 
-renderFavItems();
+// define function for initiation
+function init() {
+  renderFavItems();
+}
+
 wordCloudBtn.addEventListener("click", createWordCloud);
 darkMode.addEventListener("click", changeViewMode);
+init();
