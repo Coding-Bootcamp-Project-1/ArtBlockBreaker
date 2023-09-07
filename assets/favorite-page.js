@@ -5,6 +5,9 @@ var favDisplayEl = document.getElementById("dispFavContainer");
 var wordCloudDisplayEl = document.getElementById("wordCloudContainer");
 var wordCloudImage = document.getElementById("wordCloudImage");
 var darkMode = document.getElementById("darkMode");
+var modalImage = document.getElementById("modalImage");
+var modal = document.getElementById("modal");
+var closeModalBtn = document.getElementById("closeModal");
 
 function changeViewMode() {
   var bodyEl = document.body;
@@ -163,8 +166,24 @@ function removeFav(e) {
   }
 }
 
+// define function for modal view
+function modalView(e) {
+  if (e.target.tagName === "IMG") {
+    console.log(e.target.src);
+    modalImage.src = e.target.src;
+    modal.classList.add("is-active");
+  }
+}
+
+// define function to close the modal
+function closeModal() {
+  modal.classList.remove("is-active");
+}
+
 wordCloudBtn.addEventListener("click", createWordCloud);
 darkMode.addEventListener("click", changeViewMode);
 favDisplayEl.addEventListener("click", removeFav);
+favDisplayEl.addEventListener("click", modalView);
+closeModalBtn.addEventListener("click", closeModal);
 
 init();
