@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./assets/styleFavoritePage.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
     <title>Your Favorite Art</title>
   </head>
   <body>
@@ -17,14 +21,31 @@
       </label>
     </nav>
     <div id="displaySection" class="display">
-      <div id="dispFavContainer" class="dispFavContainer">
-      </div>
+      <div id="dispFavContainer" class="dispFavContainer"></div>
       <div id="wordCloudContainer" class="wordCloudContainer">
         <p id="wordCloudDescription" class="wordCloudDescription">
-          Both the words and colors in this inspiration cloud are generated based on your favorite pieces of art.
+          Both the words and colors in this inspiration cloud are generated
+          based on your favorite pieces of art.
         </p>
         <img id="wordCloudImage" class="wordCloudImage" />
       </div>
+    </div>
+    <div id="modal" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <p class="image is-6by5">
+          <img
+            id="modalImage"
+            src="https://bulma.io/images/placeholders/1280x960.png"
+            alt=""
+          />
+        </p>
+      </div>
+      <button
+        id="closeModal"
+        class="modal-close is-large"
+        aria-label="close"
+      ></button>
     </div>
     <script src="./assets/favorite-page.js"></script>
   </body>
