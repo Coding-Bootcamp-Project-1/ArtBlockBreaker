@@ -4,11 +4,11 @@ var wordCloudBtn = document.getElementById("wordCloudBtnFP");
 var favDisplayEl = document.getElementById("dispFavContainer");
 var wordCloudDisplayEl = document.getElementById("wordCloudContainer");
 var wordCloudImage = document.getElementById("wordCloudImage");
-var darkMode = document.getElementById("darkMode")
+var darkMode = document.getElementById("darkMode");
 
 function changeViewMode() {
   var bodyEl = document.body;
-  bodyEl.classList.toggle("darkMode")
+  bodyEl.classList.toggle("darkMode");
 }
 
 //Definal inial values for global objects.
@@ -33,6 +33,8 @@ var apiObject = {
 function renderFavItems() {
   // var favToDisplay = JSON.parse(localStorage.getItem("favItems"));
   // retrive favorite artwork ID from the localstorage
+  favDisplayEl.innerHTML = "";
+
   var favoriteArtworkID = JSON.parse(
     localStorage.getItem("Favorite Artwork ID")
   );
@@ -45,7 +47,7 @@ function renderFavItems() {
         return response.json();
       })
       .then(function (data) {
-        console.log(data);
+        // console.log(data);
         renderFavCard(data);
         //add to word list for word cloud to apiObject
         wordList += data.data.term_titles + ", " + data.data.thumbnail.alt_text;
@@ -77,6 +79,7 @@ function renderFavCard(data) {
   // add values or attributes to HTML elements
   resultImage.src = `https://www.artic.edu/iiif/2/${data.data.image_id}/full/843,/0/default.jpg`;
   removeButton.textContent = "Remove from Favorites";
+  removeButton.dataset.index = data.data.id;
   artistName.textContent = data.data.artist_title;
   imageTitle.textContent = data.data.title;
 
@@ -140,6 +143,26 @@ function init() {
   renderFavItems();
 }
 
+// define function to remove artwork from favorite list
+function removeFav(e) {
+  console.log(e.target);
+  var favoriteArtworkID = JSON.parse(
+    localStorage.getItem("Favorite Artwork ID")
+  );
+  console.log(favoriteArtworkID);
+  const artID = e.target.dataset.index;
+  const index = favoriteArtworkID.indexOf(artID);
+  favoriteArtworkID.splice(index, 1);
+  console.log(favoriteArtworkID);
+  localStorage.setItem(
+    "Favorite Artwork ID",
+    JSON.stringify(favoriteArtworkID)
+  );
+  renderFavItems();
+}
+
 wordCloudBtn.addEventListener("click", createWordCloud);
 darkMode.addEventListener("click", changeViewMode);
+favDisplayEl.addEventListener("click", removeFav);
+
 init();
