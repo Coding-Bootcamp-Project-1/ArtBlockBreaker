@@ -161,8 +161,12 @@ function removeFav(e) {
   renderFavItems();
 }
 
+// define function for modal view
+function modalView() {}
+
 wordCloudBtn.addEventListener("click", createWordCloud);
 darkMode.addEventListener("click", changeViewMode);
 favDisplayEl.addEventListener("click", removeFav);
+favDisplayEl.addEventListener("click", modalView);
 
 init();
