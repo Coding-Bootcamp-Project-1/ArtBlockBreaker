@@ -146,19 +146,21 @@ function init() {
 // define function to remove artwork from favorite list
 function removeFav(e) {
   console.log(e.target);
-  var favoriteArtworkID = JSON.parse(
-    localStorage.getItem("Favorite Artwork ID")
-  );
-  console.log(favoriteArtworkID);
-  const artID = e.target.dataset.index;
-  const index = favoriteArtworkID.indexOf(artID);
-  favoriteArtworkID.splice(index, 1);
-  console.log(favoriteArtworkID);
-  localStorage.setItem(
-    "Favorite Artwork ID",
-    JSON.stringify(favoriteArtworkID)
-  );
-  renderFavItems();
+  if (e.target.tagName === "BUTTON") {
+    var favoriteArtworkID = JSON.parse(
+      localStorage.getItem("Favorite Artwork ID")
+    );
+    console.log(favoriteArtworkID);
+    const artID = e.target.dataset.index;
+    const index = favoriteArtworkID.indexOf(artID);
+    favoriteArtworkID.splice(index, 1);
+    console.log(favoriteArtworkID);
+    localStorage.setItem(
+      "Favorite Artwork ID",
+      JSON.stringify(favoriteArtworkID)
+    );
+    renderFavItems();
+  }
 }
 
 wordCloudBtn.addEventListener("click", createWordCloud);

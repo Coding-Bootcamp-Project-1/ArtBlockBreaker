@@ -100,19 +100,24 @@ function getImageSrc(imageId) {
 
 // define function to add favorite artwork to a favorite Array
 function addFavorite(e) {
-  if (localStorage.getItem("Favorite Artwork ID")) {
-    favoriteArtworkID = JSON.parse(localStorage.getItem("Favorite Artwork ID"));
-    if (favoriteArtworkID.includes(e.target.dataset.index)) return;
-  } else {
-    favoriteArtworkID = [];
-  }
+  console.log(e.target);
+  if (e.target.tagName === "BUTTON") {
+    if (localStorage.getItem("Favorite Artwork ID")) {
+      favoriteArtworkID = JSON.parse(
+        localStorage.getItem("Favorite Artwork ID")
+      );
+      if (favoriteArtworkID.includes(e.target.dataset.index)) return;
+    } else {
+      favoriteArtworkID = [];
+    }
 
-  // push the favorite image id into the array
-  favoriteArtworkID.push(e.target.dataset.index);
-  localStorage.setItem(
-    "Favorite Artwork ID",
-    JSON.stringify(favoriteArtworkID)
-  );
+    // push the favorite image id into the array
+    favoriteArtworkID.push(e.target.dataset.index);
+    localStorage.setItem(
+      "Favorite Artwork ID",
+      JSON.stringify(favoriteArtworkID)
+    );
+  }
 }
 
 // add event listener for form submit
