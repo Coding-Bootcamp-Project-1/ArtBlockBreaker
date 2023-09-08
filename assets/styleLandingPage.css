@@ -5,24 +5,21 @@ body {
 }
 
 header {
+  display: flex;
+  justify-content: center;
   text-align: center;
   background-color: #222;
   color: #fff;
-  padding: 20px; 
+  padding: 20px;
 }
 
-.header1{
-  margin: 20px auto;
-  padding: 15px;
+.header1 {
+  margin: 20px 20px;
   height: 75px;
   width: 400px;
-  background-color: dimgray;
-  box-shadow: 
- 10px 10px 50px rgba(0,0,0,.5),
--1px -1px 2px rgba(255,255,255,1);
-font-family: 'Lobster Two', cursive;
-font-weight: 700;
-font-size: 55px;
+  font-family: "Lobster Two", cursive;
+  font-weight: 700;
+  font-size: 55px;
 }
 
 footer {
@@ -36,13 +33,13 @@ footer {
   justify-content: space-around;
   margin: 5px;
   border: 3px solid black;
-  background-color: lightgray ;
+  background-color: lightgray;
   padding-top: 0.5%;
   padding-bottom: 0.5%;
   font-size: 25px;
 }
 
-.favLink{
+.favLink {
   background-color: white;
   color: black;
   border: 3px solid black;
@@ -53,7 +50,7 @@ footer {
   border: 1px solid black;
 }
 
-.favLink:hover{
+.favLink:hover {
   background-color: black;
   color: white;
   padding: 4px 14px;
@@ -63,17 +60,17 @@ footer {
   display: inline-block;
 }
 
-.button{
+.button {
   cursor: pointer;
   padding: 7px;
 }
 
-.searchInput{
+.searchInput {
   padding: 7px;
   font-size: 15px;
 }
 
-.searchInput:focus{
+.searchInput:focus {
   /* background-color: gray; */
   color: black;
   border: 4px solid white;
@@ -100,11 +97,11 @@ footer {
   /* border: 1px solid black; */
   --s: 10px; /*control the size*/
   padding: 7px;
-  border: calc(2*var(--s)) solid #0000;
+  border: calc(2 * var(--s)) solid #0000;
   outline: 2px solid #000;
-  outline-offset: calc(-1*var(--s));
-  background: conic-gradient(from 90deg at 2px 2px,#0000 25%,#000 0);
- }
+  outline-offset: calc(-1 * var(--s));
+  background: conic-gradient(from 90deg at 2px 2px, #0000 25%, #000 0);
+}
 
 .cardImage {
   display: flex;
@@ -117,26 +114,25 @@ footer {
 .description {
   display: flex;
   flex-direction: column;
-  align-items: center;  
+  align-items: center;
 }
 
-.artInfo{
+.artInfo {
   margin: 5%;
   text-align: center;
-  font-family: 'Libre Baskerville', serif;
+  font-family: "Libre Baskerville", serif;
 }
 
-.artName{
-  font-family: 'Libre Baskerville', serif;
+.artName {
+  font-family: "Libre Baskerville", serif;
 }
 
-.favoriteButton{
-  margin-top: 3%
-
+.favoriteButton {
+  margin-top: 3%;
 }
 
-.artistName{
-  font-family: 'Libre Baskerville', serif;
+.artistName {
+  font-family: "Libre Baskerville", serif;
   font-weight: bold;
   font-style: italic;
 }
@@ -148,4 +144,52 @@ footer {
 
 .hidden {
   display: none;
+}
+
+.frame {
+  --corner: 1em;
+  --bg: rgb(0, 145, 255);
+}
+
+.warning {
+  border: var(--corner) solid;
+  border-image-source: repeating-linear-gradient(
+    45deg,
+    transparent 0px,
+    transparent 4px,
+    var(--bg) 4px,
+    var(--bg) 8px,
+    transparent 8px
+  );
+  border-image-repeat: stretch;
+  /* no idea how slicing works on a repeated gradient, but this seems to be okay? */
+  border-image-slice: 35;
+}
+
+.disco {
+  border: var(--corner) solid;
+  border-image-source: radial-gradient(
+    closest-side,
+    transparent 10%,
+    var(--bg) 10%,
+    var(--bg) 20%,
+    transparent 20%,
+    transparent 30%,
+    var(--bg) 30%,
+    var(--bg) 40%,
+    transparent 40%,
+    transparent 50%,
+    var(--bg) 50%,
+    var(--bg) 60%,
+    transparent 60%,
+    transparent 70%,
+    var(--bg) 70%,
+    var(--bg) 80%,
+    transparent 80%,
+    transparent 90%,
+    var(--bg) 99.99%,
+    var(--bg) 100%,
+    transparent 99.99%
+  );
+  border-image-slice: 49%;
 }
