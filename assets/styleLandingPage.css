@@ -198,3 +198,7 @@ footer {
   color: #fff;
   padding: 20px;
 }
+
+.btnColor {
+  background-color: rgb(117, 115, 115);
+}
