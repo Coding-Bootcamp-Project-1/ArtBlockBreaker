@@ -202,3 +202,7 @@ footer {
   /* browsers have different thresholds for this, Safari needs at least 0.1% */
   border-image-slice: 0.1%;
 }
+
+.btnColor {
+  background-color: rgb(117, 115, 115);
+}
