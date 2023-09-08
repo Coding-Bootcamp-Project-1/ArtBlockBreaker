@@ -9,25 +9,33 @@
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
     />
     <title>Your Favorite Art</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Libre+Baskerville:wght@400;700&family=Lobster+Two:ital,wght@1,700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <div><h1 id="headerFP" class="header">Favorites and Inspiration</h1></div>
+    <div>
+      <h1 id="headerFP" class="header">Favorites and Inspiration</h1>  
+    </div>
     <nav id="navFP" class="nav">
-      <a href="./index.html">Home Page</a>
-      <button id="wordCloudBtnFP" class="button">WordCloud</button>
-      <label>
-        <input type="checkbox" id="darkMode" class="darkMode" />
-        Dark Mode
-      </label>
+      <a class="homeLink" href="./index.html">Home Page</a>
     </nav>
     <div id="displaySection" class="display">
       <div id="dispFavContainer" class="dispFavContainer"></div>
       <div id="wordCloudContainer" class="wordCloudContainer">
         <p id="wordCloudDescription" class="wordCloudDescription">
           Both the words and colors in this inspiration cloud are generated
-          based on your favorite pieces of art.
+          based on your favorite pieces of art!
         </p>
+        <label>
+          <input type="checkbox" id="darkMode" class="darkMode" />
+          Toggle Background Color
+        </label>
         <img id="wordCloudImage" class="wordCloudImage" />
+        <button id="wordCloudBtnFP" class="button">Click for Inspiration</button>
       </div>
     </div>
     <div id="modal" class="modal">

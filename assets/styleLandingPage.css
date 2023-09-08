@@ -13,7 +13,7 @@ header {
   padding: 20px;
 }
 
-.header1 {
+.title {
   margin: 20px 20px;
   height: 75px;
   width: 400px;
@@ -71,7 +71,6 @@ footer {
 }
 
 .searchInput:focus {
-  /* background-color: gray; */
   color: black;
   border: 4px solid white;
 }
@@ -94,7 +93,6 @@ footer {
   align-items: center;
   width: 45%;
   margin: 10px;
-  /* border: 1px solid black; */
   --s: 10px; /*control the size*/
   padding: 7px;
   border: calc(2 * var(--s)) solid #0000;
@@ -146,24 +144,10 @@ footer {
   display: none;
 }
 
+/* styling for application title frame */
 .frame {
   --corner: 1em;
   --bg: rgb(0, 145, 255);
-}
-
-.warning {
-  border: var(--corner) solid;
-  border-image-source: repeating-linear-gradient(
-    45deg,
-    transparent 0px,
-    transparent 4px,
-    var(--bg) 4px,
-    var(--bg) 8px,
-    transparent 8px
-  );
-  border-image-repeat: stretch;
-  /* no idea how slicing works on a repeated gradient, but this seems to be okay? */
-  border-image-slice: 35;
 }
 
 .disco {

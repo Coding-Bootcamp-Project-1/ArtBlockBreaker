@@ -6,8 +6,6 @@ Hailong (David) - [ChgDave](https://github.com/ChgDave)
 
 Archer - [flying-tadpole](https://github.com/flying-tadpole)
 
-Naomi - [Naomidas](https://github.com/Naomidas)
-
 Travis - [Tavisnator](https://github.com/Tavisnator)
 
 ## Description
@@ -39,4 +37,8 @@ Used code snippets provided as a part of coding bootcamp.
 [Color Convertor API](https://www.thecolorapi.com/)
 
 [Word Cloud Generator API](https://quickchart.io/documentation/word-cloud-api/#getting-started)
+
+[Image frame styling](https://freefrontend.com/css-frames/)
+
+[Bulma modal styling](https://bulma.io/documentation/components/modal/)
 
