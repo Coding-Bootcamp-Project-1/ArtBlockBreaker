@@ -29,8 +29,6 @@ var apiObject = {
   text: "",
 };
 
-//add remove from favorites function
-
 // define function to show favorites list on page
 function renderFavItems() {
   // retrive favorite artwork ID from the localstorage
@@ -48,7 +46,6 @@ function renderFavItems() {
         return response.json();
       })
       .then(function (data) {
-        // console.log(data);
         renderFavCard(data);
         //add to word list for word cloud to apiObject
         wordList += data.data.term_titles + ", " + data.data.thumbnail.alt_text;
@@ -79,7 +76,7 @@ function renderFavCard(data) {
 
   // add values or attributes to HTML elements
   resultImage.src = `https://www.artic.edu/iiif/2/${data.data.image_id}/full/843,/0/default.jpg`;
-  removeButton.textContent = "Remove from Favorites";
+  removeButton.textContent = "Remove";
   removeButton.dataset.index = data.data.id;
   artistName.textContent = data.data.artist_title;
   imageTitle.textContent = data.data.title;
@@ -91,7 +88,7 @@ function renderFavCard(data) {
   resultImage.classList.add("favImage");
   imageTitle.classList.add("imageTitle");
   artistName.classList.add("artistName");
-  removeButton.classList.add("button");
+  removeButton.classList.add("removeButton");
 
   //append the elements to parent HTML element
   cardImage.append(resultImage);
@@ -116,10 +113,6 @@ function getColor(colorFullCode) {
 
 // define create word cloud function
 function createWordCloud() {
-  // console.log("text passed into wc: ", wordList);
-  // console.log(typeof wordList.toString());
-  // console.log("colors passed into wc: ", colorList);
-  // console.log(apiObject);
   fetch(`https://quickchart.io/wordcloud`, {
     method: "POST",
     body: JSON.stringify(apiObject),
@@ -129,12 +122,10 @@ function createWordCloud() {
     responseType: "blob",
   })
     .then(function (response) {
-      // console.log("response", response);
       return response.blob();
     })
     .then(function (data) {
       var wordCloudImageUrl = URL.createObjectURL(data);
-      // console.log("url", wordCloudImageUrl);
       wordCloudImage.src = wordCloudImageUrl;
     });
 }
@@ -146,16 +137,13 @@ function init() {
 
 // define function to remove artwork from favorite list
 function removeFav(e) {
-  // console.log(e.target);
   if (e.target.tagName === "BUTTON") {
     var favoriteArtworkID = JSON.parse(
       localStorage.getItem("Favorite Artwork ID")
     );
-    // console.log(favoriteArtworkID);
     const artID = e.target.dataset.index;
     const index = favoriteArtworkID.indexOf(artID);
     favoriteArtworkID.splice(index, 1);
-    // console.log(favoriteArtworkID);
     localStorage.setItem(
       "Favorite Artwork ID",
       JSON.stringify(favoriteArtworkID)
@@ -167,7 +155,6 @@ function removeFav(e) {
 // define function for modal view
 function modalView(e) {
   if (e.target.tagName === "IMG") {
-    // console.log(e.target.src);
     modalImage.src = e.target.src;
     modal.classList.add("is-active");
   }
@@ -178,6 +165,7 @@ function closeModal() {
   modal.classList.remove("is-active");
 }
 
+// event listeners for user interactions
 wordCloudBtn.addEventListener("click", createWordCloud);
 darkMode.addEventListener("click", changeViewMode);
 favDisplayEl.addEventListener("click", removeFav);
