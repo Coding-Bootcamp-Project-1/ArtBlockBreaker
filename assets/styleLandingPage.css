@@ -22,12 +22,6 @@ header {
   font-size: 55px;
 }
 
-footer {
-  background-color: #ccc;
-  padding: 20px;
-  text-align: center;
-}
-
 .navSection {
   display: flex;
   justify-content: space-around;
@@ -176,4 +170,15 @@ footer {
     transparent 99.99%
   );
   border-image-slice: 49%;
+}
+
+footer {
+  font-family: "Libre Baskerville", serif;
+  font-size: smaller;
+  font-weight: lighter;
+  font-style: italic;
+  text-align: center;
+  background-color: #222;
+  color: #fff;
+  padding: 20px;
 }

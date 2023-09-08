@@ -41,4 +41,3 @@ Used code snippets provided as a part of coding bootcamp.
 [Image frame styling](https://freefrontend.com/css-frames/)
 
 [Bulma modal styling](https://bulma.io/documentation/components/modal/)
-
