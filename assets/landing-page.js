@@ -5,6 +5,7 @@ var searchInput = document.getElementById("searchInput");
 var searchButton = document.getElementById("searchButton");
 var displayArtCards = document.getElementById("displayArtContainer");
 var heroImage = document.getElementById("mainImage");
+var loader = document.getElementById("loader");
 
 // define global variables
 var favoriteArtworkID;
@@ -18,12 +19,11 @@ function init() {
 function getArt(e) {
   // prevent default for form
   e.preventDefault();
-
+  loader.classList.remove("hidden");
   // hide hero image
   heroImage.classList.add("hidden");
   // clear the display container
   displayArtCards.innerHTML = "";
-
   // construct ART Institute APR URL
   var searchTerm = searchInput.value;
   var requestUrl = `https://api.artic.edu/api/v1/artworks/search?q=${searchTerm}&size=10`;
@@ -46,6 +46,8 @@ function getArt(e) {
           })
           .then(function (data) {
             console.log("2nd fetch data: ", data);
+            // displayArtCards.innerHTML = "";
+            loader.classList.add("hidden");
             renderDispCard(data);
           });
       }
