@@ -5,6 +5,8 @@ body {
 }
 
 header {
+  display: flex;
+  justify-content: center;
   text-align: center;
   background-color: #222;
   color: #fff;
@@ -65,4 +67,52 @@ footer {
 
 .hidden {
   display: none;
+}
+
+.frame {
+  --corner: 1em;
+  --bg: rgb(0, 145, 255);
+}
+
+.warning {
+  border: var(--corner) solid;
+  border-image-source: repeating-linear-gradient(
+    45deg,
+    transparent 0px,
+    transparent 4px,
+    var(--bg) 4px,
+    var(--bg) 8px,
+    transparent 8px
+  );
+  border-image-repeat: stretch;
+  /* no idea how slicing works on a repeated gradient, but this seems to be okay? */
+  border-image-slice: 35;
+}
+
+.disco {
+  border: var(--corner) solid;
+  border-image-source: radial-gradient(
+    closest-side,
+    transparent 10%,
+    var(--bg) 10%,
+    var(--bg) 20%,
+    transparent 20%,
+    transparent 30%,
+    var(--bg) 30%,
+    var(--bg) 40%,
+    transparent 40%,
+    transparent 50%,
+    var(--bg) 50%,
+    var(--bg) 60%,
+    transparent 60%,
+    transparent 70%,
+    var(--bg) 70%,
+    var(--bg) 80%,
+    transparent 80%,
+    transparent 90%,
+    var(--bg) 99.99%,
+    var(--bg) 100%,
+    transparent 99.99%
+  );
+  border-image-slice: 49%;
 }
