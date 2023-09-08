@@ -13,7 +13,7 @@ header {
   padding: 20px;
 }
 
-.title {
+.header1 {
   margin: 20px 20px;
   height: 75px;
   width: 400px;
@@ -24,7 +24,7 @@ header {
 
 .navSection {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   margin: 5px;
   border: 3px solid black;
   background-color: lightgray;
@@ -149,27 +149,43 @@ header {
   border-image-source: radial-gradient(
     closest-side,
     transparent 10%,
-    var(--bg) 10%,
-    var(--bg) 20%,
+    red 10%,
+    orange 20%,
     transparent 20%,
     transparent 30%,
-    var(--bg) 30%,
+    yellow 30%,
     var(--bg) 40%,
     transparent 40%,
     transparent 50%,
-    var(--bg) 50%,
-    var(--bg) 60%,
+    green 50%,
+    rgb(32, 199, 32) 60%,
     transparent 60%,
     transparent 70%,
     var(--bg) 70%,
-    var(--bg) 80%,
+    aqua 80%,
     transparent 80%,
     transparent 90%,
-    var(--bg) 99.99%,
+    purple 99.99%,
     var(--bg) 100%,
     transparent 99.99%
   );
   border-image-slice: 49%;
+}
+
+.brackets {
+  border: 10px solid;
+  border-image-source: conic-gradient(
+    transparent 10%,
+    yellow 10%,
+    var(--bg) 40%,
+    transparent 40%,
+    transparent 60%,
+    red 60%,
+    var(--bg) 90%,
+    transparent 90%
+  );
+  /* browsers have different thresholds for this, Safari needs at least 0.1% */
+  border-image-slice: 0.1%;
 }
 
 footer {

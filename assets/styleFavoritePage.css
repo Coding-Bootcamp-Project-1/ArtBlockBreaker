@@ -15,6 +15,31 @@ body {
   font-size: 55px;
 }
 
+.headerBackground {
+  background: #222;
+}
+
+.frame {
+  --corner: 1em;
+  --bg: rgb(0, 145, 255);
+}
+
+.brackets {
+  border: 10px solid;
+  border-image-source: conic-gradient(
+    transparent 10%,
+    yellow 10%,
+    var(--bg) 40%,
+    transparent 40%,
+    transparent 60%,
+    red 60%,
+    var(--bg) 90%,
+    transparent 90%
+  );
+  /* browsers have different thresholds for this, Safari needs at least 0.1% */
+  border-image-slice: 0.1%;
+}
+
 .nav {
   display: flex;
   justify-content: space-around;
