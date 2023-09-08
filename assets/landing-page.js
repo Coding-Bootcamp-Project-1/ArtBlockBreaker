@@ -102,6 +102,8 @@ function getImageSrc(imageId) {
 function addFavorite(e) {
   console.log(e.target);
   if (e.target.tagName === "BUTTON") {
+    e.target.classList.add("btnColor");
+    console.log(e.target.classList);
     if (localStorage.getItem("Favorite Artwork ID")) {
       favoriteArtworkID = JSON.parse(
         localStorage.getItem("Favorite Artwork ID")
@@ -112,6 +114,7 @@ function addFavorite(e) {
     }
 
     // push the favorite image id into the array
+
     favoriteArtworkID.push(e.target.dataset.index);
     localStorage.setItem(
       "Favorite Artwork ID",
