@@ -24,9 +24,9 @@ We chose to create an art exploration and idea generation tool. By using APIs fr
 
 Preview:
 
-![Home Page]() *need to add screenshot of homepage once completed
+![Home Page](./assets/landing-page-preview.png)
 
-![Favorites Page]() *need to add screenshot of favpage once completed
+![Favorites Page](./assets/fav-page-preview.png)
 
 ## Credits
 
@@ -41,4 +41,3 @@ Used code snippets provided as a part of coding bootcamp.
 [Image frame styling](https://freefrontend.com/css-frames/)
 
 [Bulma modal styling](https://bulma.io/documentation/components/modal/)
-
