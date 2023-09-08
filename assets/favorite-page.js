@@ -8,6 +8,7 @@ var darkMode = document.getElementById("darkMode");
 var modalImage = document.getElementById("modalImage");
 var modal = document.getElementById("modal");
 var closeModalBtn = document.getElementById("closeModal");
+var loader = document.getElementById("loader");
 
 function changeViewMode() {
   wordCloudImage.classList.toggle("darkMode");
@@ -113,6 +114,7 @@ function getColor(colorFullCode) {
 
 // define create word cloud function
 function createWordCloud() {
+  loader.classList.remove("hidden");
   fetch(`https://quickchart.io/wordcloud`, {
     method: "POST",
     body: JSON.stringify(apiObject),
@@ -125,6 +127,7 @@ function createWordCloud() {
       return response.blob();
     })
     .then(function (data) {
+      loader.classList.add("hidden");
       var wordCloudImageUrl = URL.createObjectURL(data);
       wordCloudImage.src = wordCloudImageUrl;
     });

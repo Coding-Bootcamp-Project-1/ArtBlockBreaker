@@ -209,7 +209,6 @@ footer {
 .lds-ring {
   display: inline-block;
   position: relative;
-  text-align: center;
   width: 80px;
   height: 80px;
 }

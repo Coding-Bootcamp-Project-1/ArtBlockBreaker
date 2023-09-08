@@ -19,7 +19,7 @@
   <body>
     <div class="headerBackground">
       <div class="frame brackets">
-        <h1 id="headerFP" class="header">Favorites and Inspiration</h1>  
+        <h1 id="headerFP" class="header">Favorites and Inspiration</h1>
       </div>
     </div>
     <nav id="navFP" class="nav">
@@ -37,7 +37,17 @@
           Toggle Background Color
         </label>
         <img id="wordCloudImage" class="wordCloudImage" />
-        <button id="wordCloudBtnFP" class="button">Click for Inspiration</button>
+        <button id="wordCloudBtnFP" class="button">
+          Click for Inspiration
+        </button>
+        <div id="loader" class="loaderWordCloud hidden">
+          <div class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
       </div>
     </div>
     <div id="modal" class="modal">
