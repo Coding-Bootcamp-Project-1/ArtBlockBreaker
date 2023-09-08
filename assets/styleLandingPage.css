@@ -56,12 +56,14 @@ header {
 
 .button {
   cursor: pointer;
-  padding: 7px;
+  padding: 5px 8px;
+  font-size: medium;
 }
 
 .searchInput {
   padding: 7px;
   font-size: 15px;
+  margin-right: 5px;
 }
 
 .searchInput:focus {
