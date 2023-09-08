@@ -10,8 +10,7 @@ var modal = document.getElementById("modal");
 var closeModalBtn = document.getElementById("closeModal");
 
 function changeViewMode() {
-  var bodyEl = document.body;
-  bodyEl.classList.toggle("darkMode");
+  wordCloudImage.classList.toggle("darkMode");
 }
 
 //Definal inial values for global objects.
@@ -34,7 +33,6 @@ var apiObject = {
 
 // define function to show favorites list on page
 function renderFavItems() {
-  // var favToDisplay = JSON.parse(localStorage.getItem("favItems"));
   // retrive favorite artwork ID from the localstorage
   favDisplayEl.innerHTML = "";
 
@@ -118,10 +116,10 @@ function getColor(colorFullCode) {
 
 // define create word cloud function
 function createWordCloud() {
-  console.log("text passed into wc: ", wordList);
-  console.log(typeof wordList.toString());
-  console.log("colors passed into wc: ", colorList);
-  console.log(apiObject);
+  // console.log("text passed into wc: ", wordList);
+  // console.log(typeof wordList.toString());
+  // console.log("colors passed into wc: ", colorList);
+  // console.log(apiObject);
   fetch(`https://quickchart.io/wordcloud`, {
     method: "POST",
     body: JSON.stringify(apiObject),
@@ -131,12 +129,12 @@ function createWordCloud() {
     responseType: "blob",
   })
     .then(function (response) {
-      console.log("response", response);
+      // console.log("response", response);
       return response.blob();
     })
     .then(function (data) {
       var wordCloudImageUrl = URL.createObjectURL(data);
-      console.log("url", wordCloudImageUrl);
+      // console.log("url", wordCloudImageUrl);
       wordCloudImage.src = wordCloudImageUrl;
     });
 }
@@ -148,16 +146,16 @@ function init() {
 
 // define function to remove artwork from favorite list
 function removeFav(e) {
-  console.log(e.target);
+  // console.log(e.target);
   if (e.target.tagName === "BUTTON") {
     var favoriteArtworkID = JSON.parse(
       localStorage.getItem("Favorite Artwork ID")
     );
-    console.log(favoriteArtworkID);
+    // console.log(favoriteArtworkID);
     const artID = e.target.dataset.index;
     const index = favoriteArtworkID.indexOf(artID);
     favoriteArtworkID.splice(index, 1);
-    console.log(favoriteArtworkID);
+    // console.log(favoriteArtworkID);
     localStorage.setItem(
       "Favorite Artwork ID",
       JSON.stringify(favoriteArtworkID)
@@ -169,7 +167,7 @@ function removeFav(e) {
 // define function for modal view
 function modalView(e) {
   if (e.target.tagName === "IMG") {
-    console.log(e.target.src);
+    // console.log(e.target.src);
     modalImage.src = e.target.src;
     modal.classList.add("is-active");
   }
